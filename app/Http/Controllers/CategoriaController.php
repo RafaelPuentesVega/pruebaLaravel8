@@ -14,7 +14,9 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        $categoria =  Categoria::all();
+
+        return  view('categoria.categoriaHome')->with('categoria' , $categoria);
     }
 
     /**
@@ -35,7 +37,10 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $categoria = new Categoria();
+        $categoria->nombre = $request->categoria_nombre;
+        $categoria->save();
+        return redirect('api/CategoriaHome');
     }
 
     /**
@@ -44,9 +49,13 @@ class CategoriaController extends Controller
      * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function show(Categoria $categoria)
+    public function show(Request $request)
     {
-        //
+        $categoriaFind =  Categoria::where('id', '=', $request->id)->get()->toArray();
+      // dd($categoria);
+        $response = Array('mensaje' => 'ok' );
+        $response['data'] =$categoriaFind;
+        return json_encode($response);
     }
 
     /**
@@ -67,9 +76,12 @@ class CategoriaController extends Controller
      * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request)
     {
-        //
+        $updateCategoria = Categoria::where("id", $request->id)
+        ->update(["nombre" =>  $request->nombre]);
+        $response = Array('mensaje' => 'update' );
+        return json_encode($response);
     }
 
     /**
@@ -78,8 +90,10 @@ class CategoriaController extends Controller
      * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categoria $categoria)
+    public function destroy($id)
     {
-        //
+        $categoria = Categoria::whereid($id);
+        $categoria->delete();
+        return redirect('api/CategoriaHome')->with('status', 'Categoria Ha sido eliminada');
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoriaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +16,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('api/PostHome');
 });
+//Route::POST('api/consultarCategoria/{id}',[CategoriaController::class, 'show']);

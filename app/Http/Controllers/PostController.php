@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class PostController extends Controller
 {
@@ -14,7 +17,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+       $postArray = Post::select('post.titulo', 'categoria.nombre' , 'post.id' , 'post.contenido')
+                ->join('categoria', 'post.Categorias_id', '=', 'categoria.id')
+                ->get()->toArray();
+
+        $categoria = Categoria::all();
+        return  view('post.postHome')->with('postArray' , $postArray)->with('categoria' , $categoria);
     }
 
     /**
@@ -35,7 +43,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $postSave = new Post();
+        $postSave->Categorias_id = $request->post_categoria;
+        $postSave->titulo = $request->post_titulo;
+        $postSave->contenido = $request->post_contenido;
+        $postSave->save();
+        return redirect('api/PostHome');
     }
 
     /**
@@ -44,9 +57,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
+        $postEdit = Post::whereid($id);
+
     }
 
     /**
