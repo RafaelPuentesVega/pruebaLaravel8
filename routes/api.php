@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,13 @@ Route::POST('updateCategoria',[CategoriaController::class, 'update']);
 //Post
 Route::get('PostHome',[PostController::class, 'index']) ->name('api/post');
 Route::POST('PostSave',[PostController::class, 'store'])->name('api/PostSave');
+Route::POST('UpdatePost',[PostController::class, 'update'])->name('api/UpdatePost');
 Route::get('editPost/{id}',[PostController::class, 'show']);
+
+
+//Comentario
+Route::POST('ComentarioSave',[ComentarioController::class, 'store'])->name('api/ComentarioSave');
+Route::POST('deleteComentario/{id}',[ComentarioController::class, 'destroy'])->name('api/deleteComentario');
 
 
 

@@ -35,7 +35,16 @@ class ComentarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       if(empty($request->idPost) || empty($request->contenido)){
+        return json_encode('DATOS VACIOS');
+       }
+
+        $comentario = new Comentario();
+        $comentario->Post_id = $request->idPost;
+        $comentario->contenido = $request->contenido;
+        $comentario->save();
+        $response = Array('mensaje' => 'save' );
+        return json_encode($response);
     }
 
     /**
@@ -78,8 +87,10 @@ class ComentarioController extends Controller
      * @param  \App\Models\Comentario  $comentario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comentario $comentario)
+    public function destroy($id)
     {
-        //
-    }
+        $categoria = Comentario::whereid($id);
+        $categoria->delete();
+        return redirect()->back();
+        }
 }

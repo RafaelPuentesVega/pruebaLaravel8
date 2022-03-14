@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Models\Comentario;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -59,7 +60,15 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $postEdit = Post::whereid($id);
+        $postEdit = Post::where("post.id","=", $id)
+        ->select('post.titulo', 'categoria.nombre' , 'post.id' , 'post.contenido' , 'post.created_at')
+        ->join('categoria', 'post.Categorias_id', '=', 'categoria.id')
+        ->get();
+        $postEdit = $postEdit[0];//Seleccionamos el primer datos del array - el primer ->fisrt()
+        $comentario = Comentario::where("comentario.Post_id","=", $id)->get();
+     //   dd($comentario);
+
+        return  view('post.editarPost')->with('postEdit' , $postEdit)->with('comentario' , $comentario);
 
     }
 
@@ -83,7 +92,10 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $updatePost = Post::where("id", $request->idPost)
+        ->update(["contenido" =>  $request->contenido]);
+        $response = Array('mensaje' => 'update' );
+        return json_encode($response);
     }
 
     /**

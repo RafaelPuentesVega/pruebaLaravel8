@@ -44,7 +44,7 @@
                                                 <div class="form-group">
                                                     <label>NOMBRE</label>
                                                     <input type="text" class="form-control" name="categoria_nombre"
-                                                        id="categoria_nombre" placeholder="Nombre Producto" required
+                                                        id="categoria_nombre" placeholder="Nombre Categoria" required
                                                         autocomplete="off">
                                                 </div>
                                             </div>

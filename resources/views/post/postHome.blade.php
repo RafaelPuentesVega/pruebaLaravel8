@@ -29,6 +29,9 @@
 
                                 </div>
                             </div>
+                            <a href="{{ url('api/CategoriaHome') }}">
+                                <button style="text-align: right" class="btn btn-info btn-md">CATEGORIAS</button>
+                            </a>
 
                             <div class="content">
                                 <br>
@@ -41,7 +44,7 @@
                                             <div class="form-group">
                                                 <label>Titulo</label>
                                                 <input type="text" class="form-control" name="post_titulo"
-                                                    id="categoria_nombre" placeholder="Titulo post" required
+                                                    id="post_titulo" placeholder="Titulo post" required
                                                     autocomplete="off">
                                             </div>
                                         </div>
@@ -49,7 +52,7 @@
                                             <div class="form-group">
                                                 <label>contenido</label>
                                                 <input type="text" class="form-control" name="post_contenido"
-                                                    id="categoria_nombre" placeholder="contenido post" required
+                                                    id="post_contenido" placeholder="contenido post" required
                                                     autocomplete="off">
                                             </div>
                                         </div>
@@ -57,7 +60,7 @@
                                             <div class="form-group">
                                                 <label>Categoria</label>
                                                 <select class="js-example-basic js-states form-control" required
-                                                    name="post_categoria" id="post_categoria">
+                                                    id="post_categoria" name="post_categoria">
                                                     <option value="">Seleccionar..</option>
                                                     @foreach ($categoria as $item)
                                                         <option value="{{ $item->id }}">{{ $item->nombre }}</option>
@@ -123,15 +126,7 @@
                                                 class="bi bi-pencil box-info pull-left"></i>
                                         </button>
                                     </a>
-                                    <form action="" method="POST" class="pull-left">
-                                        @csrf
-                                        <button style="border: none; outline:none; text-decoration: none; margin: 0%"
-                                            type="submit" title="Eliminar" data-toggle="tooltip" data-placement="left"
-                                            class="btn btn-danger btn-fill  pull-right " id="deleteCategoria">
-                                            <i style="color: #ffffff; font-size: 20px; margin: -5px"
-                                                class="bi bi-trash-fill box-info pull-left"></i>
-                                        </button>
-                                    </form>
+
                                 </td>
 
                             </tr>
