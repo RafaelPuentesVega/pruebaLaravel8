@@ -44,6 +44,9 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        if(empty($request->post_categoria) || empty($request->post_titulo) || empty($request->post_contenido)){
+            return json_encode('DATOS VACIOS');
+           }
         $postSave = new Post();
         $postSave->Categorias_id = $request->post_categoria;
         $postSave->titulo = $request->post_titulo;
@@ -66,7 +69,6 @@ class PostController extends Controller
         ->get();
         $postEdit = $postEdit[0];//Seleccionamos el primer datos del array - el primer ->fisrt()
         $comentario = Comentario::where("comentario.Post_id","=", $id)->get();
-     //   dd($comentario);
 
         return  view('post.editarPost')->with('postEdit' , $postEdit)->with('comentario' , $comentario);
 
@@ -92,6 +94,10 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        if(empty($request->idPost) || empty($request->contenido)){
+            return json_encode('DATOS VACIOS');
+           }
+
         $updatePost = Post::where("id", $request->idPost)
         ->update(["contenido" =>  $request->contenido]);
         $response = Array('mensaje' => 'update' );

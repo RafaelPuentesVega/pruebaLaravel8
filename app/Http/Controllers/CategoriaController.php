@@ -37,6 +37,9 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+        if(empty($request->categoria_nombre)){
+            return json_encode('DATOS VACIOS');
+        }
         $categoria = new Categoria();
         $categoria->nombre = $request->categoria_nombre;
         $categoria->save();
@@ -78,6 +81,9 @@ class CategoriaController extends Controller
      */
     public function update(Request $request)
     {
+        if(empty($request->nombre)){
+            return json_encode('DATOS VACIOS');
+        }
         $updateCategoria = Categoria::where("id", $request->id)
         ->update(["nombre" =>  $request->nombre]);
         $response = Array('mensaje' => 'update' );
